@@ -8,6 +8,7 @@ MOOD_POINTS = 2.5
 VALENCE_POINTS = 1.5
 GENRE_POINTS = 1.5
 ACOUSTIC_POINTS = 1.0
+MAX_SCORE = ENERGY_POINTS + MOOD_POINTS + VALENCE_POINTS + GENRE_POINTS + ACOUSTIC_POINTS
 
 INT_FIELDS = ("id",)
 FLOAT_FIELDS = ("energy", "tempo_bpm", "valence", "danceability", "acousticness")
@@ -88,7 +89,7 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
-    """Score one song (max 10.0) against user prefs; return (score, reasons for each point)."""
+    """Score one song (max MAX_SCORE) against user prefs; return (score, reasons for each point)."""
     score = 0.0
     reasons: List[str] = []
 
