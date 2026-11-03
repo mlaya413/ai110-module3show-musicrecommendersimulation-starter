@@ -21,16 +21,24 @@ Prompts:
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+This recommender works like a friend who knows your taste and checks each song in a list against it, one at a time. It is "content-based": it only looks at what a song is like, not at what other listeners did. Real apps like Spotify also learn from millions of listeners' plays and skips. Mine has no other users, so it can't do that.
 
-Prompts:  
+**What it knows about you.** Your favorite genre, your favorite mood, how energetic you want the music, how happy or dark you want it to sound, and whether you like acoustic (unplugged, organic) music.
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
+**What it knows about each song.** Its genre, mood, energy, valence (how happy it sounds), and acousticness.
 
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+**How a song gets its score.** Every song starts at zero and earns up to 10 points:
+- **Energy (up to 3.5 points).** The closer the song's energy is to what you want, the more points. A calm song is not "worse" than a loud one. It only loses points when it is far from your target, whether too loud or too quiet.
+- **Mood (2.5 points).** All or nothing: you get them if the song's mood is the one you asked for.
+- **Valence (up to 1.5 points).** Same idea as energy, for how happy or dark the song sounds. This is what separates an upbeat workout song from an angry one.
+- **Genre (1.5 points).** All or nothing, like mood.
+- **Acousticness (up to 1 point).** The closer to your acoustic preference, the more points.
+
+I put mood above genre on purpose. Genre is a broad label, and a chill jazz song and a chill lofi song can feel the same, while two songs in the same genre can feel completely different.
+
+**How it picks songs.** It scores every song in the catalog, sorts them from highest to lowest, and shows the top five. For each one it also lists the exact points it earned, so you can see why it was recommended.
+
+**Changes from the starter.** The starter returned the first songs in the file with no scoring. I added the CSV loader, the point system, the ranking, and the explanations, plus a `target_valence` setting for the user.
 
 ---
 
